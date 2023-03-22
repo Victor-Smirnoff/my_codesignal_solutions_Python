@@ -15,3 +15,21 @@
 
 def solution(n, k):
     return n & ~(2 ** (k - 1))
+
+# ver.2
+def solution(n, k):
+    def get_two_bit(n):
+        res = ''
+        base = 2
+        while n > 0:
+            digit = n % base
+            res += str(digit)
+            n //= base
+        return res[::-1]
+    if n == 0:
+        return 0
+    base = 2
+    tmp = list(get_two_bit(n))
+    tmp[-k] = 0
+    tmp = tmp[::-1]
+    return sum([base ** i for i in range(len(tmp)) if tmp[i] == '1'])
